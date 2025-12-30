@@ -99,7 +99,7 @@ local function splitTags(raw)
 			set[trimmed] = true
 		end
 	end
-	for _ in pairs(set) do
+	if next(set) ~= nil then
 		return set
 	end
 	return nil
@@ -300,4 +300,3 @@ function Fallback.assert(condition, fmt, ...)
 end
 
 return Fallback
-

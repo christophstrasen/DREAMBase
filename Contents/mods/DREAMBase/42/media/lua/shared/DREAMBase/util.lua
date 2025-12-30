@@ -59,9 +59,7 @@ if U.asStringList == nil then
 			end
 		end
 
-		if value == nil then
-			-- nothing
-		elseif type(value) == "string" then
+		if type(value) == "string" then
 			addOne(value)
 		elseif type(value) == "table" then
 			for i = 1, #value do
@@ -328,4 +326,3 @@ if U.subscribeEvent == nil then
 end
 
 return U
-

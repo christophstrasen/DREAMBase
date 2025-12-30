@@ -48,3 +48,7 @@ In tests/scripts, make sure `package.path` can find DREAMBase, then optionally:
 require("DREAMBase/bootstrap")
 ```
 
+### Development
+
+- Run unit tests: `busted tests/unit`
+- Lint: `luacheck Contents/mods/DREAMBase/42/media/lua/shared/DREAMBase Contents/mods/DREAMBase/42/media/lua/shared/DREAMBase.lua`
