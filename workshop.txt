@@ -1,0 +1,16 @@
+version=1
+title=[42] DREAMBase
+description=DREAMBase - shared utilities for the DREAM mod family (Build 42).
+
+DREAMBase is a small library mod that provides:
+- shared logging (delegates to LQR logger when present)
+- shared utility helpers (assertf, key hashing, small helpers)
+- shared time helpers (gameMillis/cpuMillis)
+- defensive PZ interop helpers (Java list access, safe method calls)
+
+GitHub (docs, source):
+https://github.com/christophstrasen/DREAMBase
+
+tags=Library;Utility;Build 42;Development
+visibility=Public
+
