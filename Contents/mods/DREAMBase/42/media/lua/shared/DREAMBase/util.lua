@@ -145,6 +145,11 @@ if U.log == nil then
 	--- @param tag string|nil
 	--- @param msg any
 	function U.log(tag, msg)
+		local okLog, Log = pcall(require, "DREAMBase/log")
+		if okLog and type(Log) == "table" and type(Log.tagged) == "function" then
+			Log.tagged("info", tostring(tag or "DB"), "%s", tostring(msg or ""))
+			return
+		end
 		print("[", tostring(tag or "DB"), "] ", tostring(msg or ""))
 	end
 end
