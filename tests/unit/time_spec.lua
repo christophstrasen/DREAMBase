@@ -1,12 +1,4 @@
-package.path = table.concat({
-	"Contents/mods/DREAMBase/42/media/lua/shared/?.lua",
-	"Contents/mods/DREAMBase/42/media/lua/shared/?/init.lua",
-	package.path,
-}, ";")
-
-_G.getDebug = function()
-	return false
-end
+dofile("tests/unit/bootstrap.lua")
 
 local function reload(moduleName)
 	package.loaded[moduleName] = nil
@@ -35,4 +27,3 @@ describe("DREAMBase time_ms", function()
 		package.loaded["DREAMBase/time_ms"] = nil
 	end)
 end)
-

@@ -1,12 +1,4 @@
-package.path = table.concat({
-	"Contents/mods/DREAMBase/42/media/lua/shared/?.lua",
-	"Contents/mods/DREAMBase/42/media/lua/shared/?/init.lua",
-	package.path,
-}, ";")
-
-_G.getDebug = function()
-	return false
-end
+dofile("tests/unit/bootstrap.lua")
 
 describe("DREAMBase util", function()
 	it("buildKey includes nil segments (does not collapse after nil)", function()
@@ -47,4 +39,3 @@ describe("DREAMBase util", function()
 		assert.is_not.equals(before, after)
 	end)
 end)
-
