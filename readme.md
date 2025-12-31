@@ -52,3 +52,4 @@ require("DREAMBase/bootstrap")
 
 - Run unit tests: `busted tests/unit`
 - Lint: `luacheck Contents/mods/DREAMBase/42/media/lua/shared/DREAMBase Contents/mods/DREAMBase/42/media/lua/shared/DREAMBase.lua`
+- PZ-style loader smoke: `./dev/smoke.sh` (expects `DREAM-Workspace/dev/sync-all.sh TARGET=mods` to have deployed dependencies)

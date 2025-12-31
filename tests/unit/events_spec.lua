@@ -82,5 +82,77 @@ describe("DREAMBase events", function()
 		event:emit("again")
 		assert.equals(1, #received)
 	end)
-end)
 
+	it("builds a PZ event stream via Events.fromPZEvent", function()
+		local Events = reload("DREAMBase/events")
+
+		local event = { handlers = {} }
+		function event.Add(fn)
+			event.handlers[fn] = true
+		end
+		function event.Remove(fn)
+			event.handlers[fn] = nil
+		end
+		function event.fire(payload)
+			for fn in pairs(event.handlers) do
+				fn(payload)
+			end
+		end
+
+		local stream = Events.fromPZEvent(event, function(payload)
+			return { occurranceKey = payload, subject = payload }
+		end)
+
+		local received = {}
+		local sub = stream:subscribe(function(candidate)
+			table.insert(received, candidate.subject)
+		end)
+
+		event.fire("hello")
+		assert.equals(1, #received)
+		assert.equals("hello", received[1])
+
+		sub:unsubscribe()
+		event.fire("again")
+		assert.equals(1, #received)
+	end)
+
+	it("builds a LuaEvent stream via Events.fromLuaEvent", function()
+		local Events = reload("DREAMBase/events")
+
+		local event = { listeners = {} }
+		function event:addListener(fn)
+			local token = {}
+			self.listeners[token] = fn
+			return token
+		end
+		function event:removeListener(token)
+			if type(token) ~= "table" then
+				error("token required")
+			end
+			self.listeners[token] = nil
+		end
+		function event:emit(payload)
+			for _, fn in pairs(self.listeners) do
+				fn(payload)
+			end
+		end
+
+		local stream = Events.fromLuaEvent(event, function(payload)
+			return { occurranceKey = payload, subject = payload }
+		end)
+
+		local received = {}
+		local sub = stream:subscribe(function(candidate)
+			table.insert(received, candidate.subject)
+		end)
+
+		event:emit("hello")
+		assert.equals(1, #received)
+		assert.equals("hello", received[1])
+
+		sub:unsubscribe()
+		event:emit("again")
+		assert.equals(1, #received)
+	end)
+end)
