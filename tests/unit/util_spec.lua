@@ -1,5 +1,3 @@
-dofile("tests/unit/bootstrap.lua")
-
 describe("DREAMBase util", function()
 	it("buildKey includes nil segments (does not collapse after nil)", function()
 		local U = require("DREAMBase/util")

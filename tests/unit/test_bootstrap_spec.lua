@@ -1,5 +1,3 @@
-dofile("tests/unit/bootstrap.lua")
-
 describe("DREAMBase test/bootstrap", function()
 	it("adds luaRoots and provides default headless globals", function()
 		local TB = require("DREAMBase/test/bootstrap")

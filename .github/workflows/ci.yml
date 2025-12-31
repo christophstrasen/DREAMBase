@@ -32,5 +32,4 @@ jobs:
 
       - name: Run DREAMBase unit tests
         run: |
-          busted tests/unit
-
+          busted --helper=tests/helper.lua tests/unit
