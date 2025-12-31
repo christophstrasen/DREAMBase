@@ -5,10 +5,12 @@ package.path = table.concat({
 }, ";")
 
 local Bootstrap = require("DREAMBase/test/bootstrap")
-if type(Bootstrap) == "table" and type(Bootstrap.apply) == "function" then
-	Bootstrap.apply({
-		luaRoots = {
-			"Contents/mods/DREAMBase/42/media/lua/shared",
-		},
-	})
-end
+assert(
+	type(Bootstrap) == "table" and type(Bootstrap.apply) == "function",
+	"DREAMBase/test/bootstrap must export apply()"
+)
+Bootstrap.apply({
+	luaRoots = {
+		"Contents/mods/DREAMBase/42/media/lua/shared",
+	},
+})
