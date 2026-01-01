@@ -350,14 +350,14 @@ if U.murmur32 == nil then
 			i = i + 4
 		end
 
-		local rem = n % 4
-		if rem > 0 then
-			local k1 = 0
-			local b1 = s:byte(limit + 1) or 0
-			local b2 = s:byte(limit + 2) or 0
-			local b3 = s:byte(limit + 3) or 0
-			if rem == 3 then
-				k1 = b1 + b2 * 256 + b3 * 65536
+			local rem = n % 4
+			if rem > 0 then
+				local k1
+				local b1 = s:byte(limit + 1) or 0
+				local b2 = s:byte(limit + 2) or 0
+				local b3 = s:byte(limit + 3) or 0
+				if rem == 3 then
+					k1 = b1 + b2 * 256 + b3 * 65536
 			elseif rem == 2 then
 				k1 = b1 + b2 * 256
 			else
