@@ -1,0 +1,14 @@
+repos:
+  - repo: local
+    hooks:
+      - id: luacheck
+        name: Run luacheck
+        entry: luacheck Contents/mods/DREAMBase/42/media/lua/shared/DREAMBase Contents/mods/DREAMBase/42/media/lua/shared/DREAMBase.lua
+        language: system
+        pass_filenames: false
+      - id: busted-tests
+        name: Run busted tests
+        entry: busted --helper=tests/helper.lua tests/unit
+        language: system
+        pass_filenames: false
+
