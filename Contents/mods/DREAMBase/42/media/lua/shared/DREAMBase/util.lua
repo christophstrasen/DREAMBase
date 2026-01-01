@@ -240,6 +240,146 @@ if U.hash32 == nil then
 	end
 end
 
+if U.murmur32 == nil then
+	--- Deterministic 32-bit MurmurHash3 (x86_32) for better avalanche on similar keys.
+	--- @param s string
+	--- @param seed number|nil
+	--- @return integer
+	function U.murmur32(s, seed)
+		s = tostring(s or "")
+		local n = #s
+		local h = seed or 0
+		local MOD = 0x100000000
+
+		local function normalize32(x)
+			x = x % MOD
+			if x < 0 then
+				x = x + MOD
+			end
+			return x
+		end
+
+		local band, bxor, lshift, rshift, rol
+		do
+			local b = rawget(_G, "bit32")
+			if type(b) == "table" then
+				band = b.band
+				bxor = b.bxor
+				lshift = b.lshift
+				rshift = b.rshift
+				rol = b.lrotate
+			else
+				b = rawget(_G, "bit")
+				if type(b) == "table" then
+					band = b.band
+					bxor = b.bxor
+					lshift = b.lshift
+					rshift = b.rshift
+					rol = b.rol or function(x, k)
+						return normalize32(lshift(x, k) + rshift(x, 32 - k))
+					end
+				end
+			end
+		end
+
+		if not band then
+			local function bitOp(a, b, op)
+				local res = 0
+				local bit = 1
+				a = normalize32(a)
+				b = normalize32(b)
+				for _ = 1, 32 do
+					local aa = a % 2
+					local bb = b % 2
+					if op(aa, bb) then
+						res = res + bit
+					end
+					a = (a - aa) / 2
+					b = (b - bb) / 2
+					bit = bit * 2
+				end
+				return res
+			end
+
+			band = function(a, b)
+				return bitOp(a, b, function(aa, bb)
+					return aa == 1 and bb == 1
+				end)
+			end
+			bxor = function(a, b)
+				return bitOp(a, b, function(aa, bb)
+					return aa ~= bb
+				end)
+			end
+			lshift = function(a, k)
+				return normalize32((normalize32(a) * (2 ^ k)) % MOD)
+			end
+			rshift = function(a, k)
+				return math.floor(normalize32(a) / (2 ^ k))
+			end
+			rol = function(a, k)
+				return normalize32(lshift(a, k) + rshift(a, 32 - k))
+			end
+		end
+
+		local function mul32(a, b)
+			local a_lo = band(a, 0xffff)
+			local a_hi = rshift(a, 16)
+			local b_lo = band(b, 0xffff)
+			local b_hi = rshift(b, 16)
+			local lo = a_lo * b_lo
+			local mid = a_hi * b_lo + a_lo * b_hi
+			return band(lo + lshift(band(mid, 0xffff), 16), 0xffffffff)
+		end
+
+		h = normalize32(h)
+		local c1 = 0xcc9e2d51
+		local c2 = 0x1b873593
+
+		local i = 1
+		local limit = n - (n % 4)
+		while i <= limit do
+			local b1, b2, b3, b4 = s:byte(i, i + 3)
+			local k = b1 + b2 * 256 + b3 * 65536 + b4 * 16777216
+			k = mul32(k, c1)
+			k = rol(k, 15)
+			k = mul32(k, c2)
+			h = bxor(h, k)
+			h = rol(h, 13)
+			h = normalize32(mul32(h, 5) + 0xe6546b64)
+			i = i + 4
+		end
+
+		local rem = n % 4
+		if rem > 0 then
+			local k1 = 0
+			local b1 = s:byte(limit + 1) or 0
+			local b2 = s:byte(limit + 2) or 0
+			local b3 = s:byte(limit + 3) or 0
+			if rem == 3 then
+				k1 = b1 + b2 * 256 + b3 * 65536
+			elseif rem == 2 then
+				k1 = b1 + b2 * 256
+			else
+				k1 = b1
+			end
+			k1 = mul32(k1, c1)
+			k1 = rol(k1, 15)
+			k1 = mul32(k1, c2)
+			h = bxor(h, k1)
+		end
+
+		h = bxor(h, n)
+		h = bxor(h, rshift(h, 16))
+		h = mul32(h, 0x85ebca6b)
+		h = bxor(h, rshift(h, 13))
+		h = mul32(h, 0xc2b2ae35)
+		h = bxor(h, rshift(h, 16))
+
+		return normalize32(h)
+	end
+end
+
 if U.buildKey == nil then
 	--- Build a compact nil-safe stable key from varargs.
 	--- @param ... any
