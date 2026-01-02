@@ -1,9 +1,16 @@
 ## DREAMBase
 
-*A small “base library” mod for the DREAM ecosystem (Build 42).*
+*A small “base library” mod for the [DREAM](https://github.com/christophstrasen/DREAM) family of mods (Build 42).*
+
 [![CI](https://github.com/christophstrasen/DREAMBase/actions/workflows/ci.yml/badge.svg)](https://github.com/christophstrasen/DREAMBase/actions/workflows/ci.yml)
 
---- 
+---
+
+[Steam Workshop → [42SP] DREAMBase](TBDLink)
+
+---
+
+## Scope
 
 It aims to provide shared utilities that work both:
 - in **Project Zomboid B42** (Lua 5.1 / Kahlua), and
