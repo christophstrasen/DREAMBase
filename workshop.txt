@@ -1,4 +1,5 @@
 version=1
+id=3637543051
 title=[42SP] DREAMBase
 description=DREAMBase - shared utilities for the DREAM mod family (Build 42, Single Player).
 description=
@@ -11,6 +12,6 @@ description=
 description=GitHub (docs, source):
 description=https://github.com/christophstrasen/DREAMBase
 description=
-tags=Library;Utility;Build 42;Development
+tags=Framework;Build 42;
 visibility=Public
 
