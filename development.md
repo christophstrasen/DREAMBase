@@ -1,7 +1,7 @@
 # DREAMBase — Development
 
 DREAMBase is part of the DREAM mod family (Build 42):
-- DREAM-Workspace (multi-repo convenience): https://github.com/christophstrasen/DREAM-Workspace
+- DREAM (multi-repo convenience): https://github.com/christophstrasen/DREAM
 
 Prereqs (for the `dev/` scripts): `rsync`, `inotifywait` (`inotify-tools`), `inkscape`.
 
@@ -65,7 +65,7 @@ pre-commit run --all-files
 
 ## Smoke (loader)
 
-`./dev/smoke.sh` expects the full suite to be deployed to `~/Zomboid/mods`. From `DREAM-Workspace`, run:
+`./dev/smoke.sh` expects the full suite to be deployed to `~/Zomboid/mods`. From `DREAM`, run:
 
 ```bash
 TARGET=mods ./dev/sync-all.sh

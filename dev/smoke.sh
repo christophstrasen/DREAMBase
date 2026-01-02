@@ -25,7 +25,7 @@ done
 if [ "${#missing[@]}" -gt 0 ]; then
   echo "[error] missing deployed dependency folders under PZ_MODS_DIR:"
   printf '  - %s\n' "${missing[@]}"
-  echo "Run DREAM-Workspace/dev/sync-all.sh with TARGET=mods first (or set PZ_MODS_DIR)."
+  echo "Run DREAM/dev/sync-all.sh with TARGET=mods first (or set PZ_MODS_DIR)."
   exit 2
 fi
 
