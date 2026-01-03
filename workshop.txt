@@ -1,17 +1,67 @@
 version=1
 id=3637543051
-title=[42SP] DREAMBase
-description=DREAMBase - shared utilities for the DREAM mod family (Build 42, Single Player).
+title=[42SP] DREAMBase - base library mod for the DREAM suite of mods
+description=[h1]DREAMBase[/h1]
 description=
-description=DREAMBase is a small library mod that provides:
-description=- shared logging (delegates to LQR logger when present)
-description=- shared utility helpers (assertf, key hashing, small helpers)
-description=- shared time helpers (gameMillis/cpuMillis)
-description=- defensive PZ interop helpers (Java list access, safe method calls)
+description=[i]A small “base library” mod for the [url=https://github.com/christophstrasen/DREAM]DREAM[/url] family of mods (Build 42).[/i]
 description=
-description=GitHub (docs, source):
-description=https://github.com/christophstrasen/DREAMBase
+description=[h2]Scope[/h2]
+description=It aims to provide shared utilities that work both:
+description=[list]
+description=[*]in [b]Project Zomboid B42[/b] (Lua 5.1 / Kahlua), and
+description=[*]in [b]headless vanilla Lua 5.1[/b] (busted/tests, CLI scripts).
+description=[/list]
 description=
+description=[h2]Module overview[/h2]
+description=
+description=[b]`require("DREAMBase/log")`[/b]
+description=[list]
+description=[*]Tagged, leveled logger.
+description=[*]Delegates to `require("LQR/util/log")` when available; otherwise uses a compatible fallback logger.
+description=[/list]
+description=
+description=[b]`require("DREAMBase/util")`[/b]
+description=[list]
+description=[*]Small pure helpers (assert/log helpers, deterministic key/hash helpers, simple cache, selection helpers).
+description=[*]Includes `subscribeEvent(...)` for adapting PZ `Events.*` and Starlit `LuaEvent` sources.
+description=[/list]
+description=
+description=[b]`require("DREAMBase/time_ms")`[/b]
+description=[list]
+description=[*]Best-effort `gameMillis()` and `cpuMillis()` clock helpers (ms).
+description=[/list]
+description=
+description=[b]`require("DREAMBase/events")`[/b]
+description=[list]
+description=[*]Event interop helpers (currently a thin wrapper around `DREAMBase/util.subscribeEvent`).
+description=[/list]
+description=
+description=[b]`require("DREAMBase/pz/java_list")`[/b]
+description=[list]
+description=[*]Defensive helpers for Java-backed lists/arrays in Kahlua (`size`, `get`).
+description=[/list]
+description=
+description=[b]`require("DREAMBase/pz/safe_call")`[/b]
+description=[list]
+description=[*]Safe engine method invocation helper (`safeCall(obj, methodName, ...)`).
+description=[/list]
+description=
+description=[b]`require("DREAMBase/bootstrap")`[/b]
+description=[list]
+description=[*]Headless-only loader convenience (best-effort `package.path` extension); should be a no-op in PZ.
+description=[/list]
+description=
+description=[h2]In-game usage[/h2]
+description=Add `\DREAMBase` to your `mod.info` `require=` list, then:
+description=
+description=[code]
+description=local U = require("DREAMBase/util")
+description=local Log = require("DREAMBase/log").withTag("MY.MOD")
+description=[/code]
+description=
+description=[b]GitHub:[/b] [url=https://github.com/christophstrasen/DREAMBase]https://github.com/christophstrasen/DREAMBase[/url]
+description=
+description=[h2]Forking[/h2]
+description=Modifications to this mod are welcome. Ideally as a PR on GitHub. You may publish your own version on the Steam Workshop under the condition that you give credit, clearly label the modded version and refer to the original. If in doubt get in touch via a GitHub issue.
 tags=Framework;Build 42;
 visibility=Public
-

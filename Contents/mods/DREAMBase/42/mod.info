@@ -1,8 +1,10 @@
 name=[42SP] DREAMBase
 id=DREAMBase
 description=DREAM base library (shared utilities) for Project Zomboid Build 42.
-versionMin=42.0
+versionMin=42.13
 poster=poster.png
 icon=icon_64.png
+author=Karmachameleon
 authors=Karmachameleon
-version=0.1.1
+homepage=https://github.com/christophstrasen/DREAMBase
+modversion=0.1.1
