@@ -1,9 +1,9 @@
 version=1
 id=3637543051
-title=[42SP] DREAMBase - base library mod for the DREAM suite of mods
+title=[42SP] DREAMBase
 description=[h1]DREAMBase[/h1]
 description=
-description=[i]A small “base library” mod for the [url=https://github.com/christophstrasen/DREAM]DREAM[/url] family of mods (Build 42).[/i]
+description=[i]A small base library mod for the [url=https://github.com/christophstrasen/DREAM]DREAM[/url] family of mods (Build 42).[/i]
 description=
 description=[h2]Scope[/h2]
 description=It aims to provide shared utilities that work both:
